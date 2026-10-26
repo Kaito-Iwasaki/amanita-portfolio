@@ -2,3 +2,48 @@
 /* Shared temporary artwork for the three project cards. */
 .work-art, .work-art:hover { background: #1e4157; color: var(--cream); }
 .project-image { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
+
+/* Project cards and accessible native detail dialog. */
+.work-art.work-open { width: 100%; padding: 0; border: 0; text-align: left; font: inherit; cursor: pointer; }
+.work-card { cursor: pointer; min-width: 0; }
+.work-card:focus-within .work-art { outline: 2px solid var(--red); outline-offset: 5px; }
+.project-card-detail { background: transparent; border: 0; border-bottom: 1px solid #bcaa9e; padding: 0 0 5px; cursor: pointer; font-family: inherit; color: inherit; }
+.project-card-detail:hover { color: var(--red); }
+body.project-modal-open { overflow: hidden; }
+.project-modal { width: min(960px, calc(100% - 48px)); max-height: calc(100dvh - 64px); padding: 0; border: 1px solid var(--line); border-radius: 28px; background: var(--cream); color: var(--ink); box-shadow: 0 25px 100px #20171540; overscroll-behavior: contain; }
+.project-modal::backdrop { background: #241c1be0; backdrop-filter: blur(5px); }
+.project-modal[open] { animation: modal-arrive .25s ease-out; }
+.project-modal-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; position: sticky; top: 0; z-index: 3; padding: 28px 32px 22px; background: var(--cream); border-bottom: 1px solid var(--line); }
+.project-modal-header .eyebrow { margin-bottom: 8px; font-size: 10px; }
+.project-modal h2 { font-size: clamp(26px, 4vw, 36px); line-height: 1.25; letter-spacing: -.8px; overflow-wrap: anywhere; }
+.modal-close { flex-shrink: 0; display: grid; place-items: center; height: 44px; width: 44px; border: 1px solid var(--line); border-radius: 50%; background: var(--pink); color: var(--red); font-size: 26px; line-height: 1; cursor: pointer; }
+.modal-close:hover, .gallery-button:hover { background: #f1dbd4; }
+.project-modal-body { padding: 24px 32px 32px; }
+.modal-summary { font-size: 13px; color: #75665f; margin: 12px 0 28px; }
+.project-modal-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+.project-modal h3 { font-size: 15px; letter-spacing: .04em; margin: 0 0 14px; }
+.modal-gallery, .modal-details { min-width: 0; }
+.modal-gallery figure { margin: 0; }
+.modal-gallery img { display: block; width: 100%; max-height: 430px; object-fit: contain; border-radius: 16px; background: #1e4157; }
+.modal-gallery figcaption { font-size: 10px; color: #806e64; margin-top: 9px; line-height: 1.7; }
+.gallery-controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 14px; }
+.gallery-button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--pink); color: var(--red); cursor: pointer; }
+#project-image-counter { font-size: 12px; }
+.project-modal [hidden] { display: none !important; }
+.modal-details section + section { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--line); }
+.modal-details p, .modal-details li { font-size: 13px; line-height: 2; overflow-wrap: anywhere; }
+.modal-details p { margin: 0 0 12px; }
+.modal-details p:last-child { margin-bottom: 0; }
+.modal-empty { color: #88776d; font-size: 13px; }
+.modal-details ul { padding-left: 1.3em; margin: 0; }
+.modal-details li + li { margin-top: 8px; }
+.modal-links { display: flex; gap: 12px 24px; flex-wrap: wrap; }
+@keyframes modal-arrive { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 700px) {
+  .project-modal { width: calc(100% - 24px); max-height: calc(100dvh - 24px); border-radius: 20px; }
+  .project-modal-header { padding: 20px; gap: 12px; }
+  .project-modal-body { padding: 20px; }
+  .project-modal-layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .modal-gallery img { max-height: 320px; }
+}
+@media (prefers-reduced-motion: reduce) { .project-modal[open] { animation: none; } }
