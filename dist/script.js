@@ -115,6 +115,7 @@ if (projectGrid && projectDialog) {
     updateProjectImage();
     document.body.classList.add('project-modal-open');
     projectDialog.showModal();
+    projectDialog.scrollTop = 0;
   };
   projectGrid.addEventListener('click', (event) => {
     const card = event.target.closest('.work-card');
@@ -146,6 +147,18 @@ if (projectGrid && projectDialog) {
   document.getElementById('project-image-prev').addEventListener('click', () => changeImage(-1));
   document.getElementById('project-image-next').addEventListener('click', () => changeImage(1));
   projectDialog.addEventListener('keydown', (event) => {
+    if (event.key === 'Tab') {
+      const focusable = [...projectDialog.querySelectorAll('button:not([disabled]), a[href]')].filter(element => element.getClientRects().length > 0);
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && (document.activeElement === first || !projectDialog.contains(document.activeElement))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault();
       changeImage(event.key === 'ArrowLeft' ? -1 : 1);
